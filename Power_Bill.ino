@@ -24,13 +24,15 @@ void loop() {
   analogValue2 = analogRead(A1);
   analogValue3 = analogRead(A2);
   crank1 = analogValue1 / 4;
-  crank2 = analogValue2 / 4;
-  crank3 = analogValue3 / 4;
+  crank2 = (analogValue2 / 4)*0.2;
+  crank3 = (analogValue3 / 4)*0.1;
 
   analogWrite(ledPin1, crank1);
   analogWrite(ledPin2, crank2);
   analogWrite(ledPin3, crank3);
 
-
+  Serial.print(crank2);
+  Serial.print(crank3);
+  Serial.println();
 
 }
