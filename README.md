@@ -1,0 +1,1 @@
+This is my midterm project for Spring 2020 class Critical Objects, entitled Power Bill.
