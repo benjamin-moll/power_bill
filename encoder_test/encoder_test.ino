@@ -137,13 +137,6 @@ void encoder2() {
     }
 
   }
-  else if((encoder2_A) &&(encoder2_A_prev)){
-<<<<<<< HEAD
-    if (brightness2 - 1 >= 0) brightness2 --;
-=======
-    if (brightness2 - fadeAmount2 >= 0) brightness2 --;
->>>>>>> 57492b77fc44948e23ae8343e23793279c1a0283
-  }
   encoder2_A_prev = encoder2_A;     // Store value of A for next time
 
   analogWrite(3, brightness2);
@@ -167,9 +160,6 @@ void encoder3() {
       if (brightness3 - fadeAmount3 >= 0) brightness3 -= fadeAmount3;
     }
 
-  }
-  else if((encoder3_A) &&(encoder3_A_prev)){
-    if (brightness3 - fadeAmount3 >= 0) brightness3 --;
   }
   encoder3_A_prev = encoder3_A;     // Store value of A for next time
 
