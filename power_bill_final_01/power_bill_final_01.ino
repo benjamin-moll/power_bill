@@ -7,6 +7,9 @@ int fadeAmount1 = 0;    // how many points to fade the LED by
 int fadeAmount2 = 0;
 int fadeAmount3 = 0;
 
+unsigned long newTimer1 = 0;
+bool time2fade = false;
+
 //push button state variables
 int buttonPushCounter = 0;
 int buttonState = 0;
@@ -119,15 +122,17 @@ void encoder1() {
 }
 
 void encoder2() {
-  fadeAmount2 = 5;
+  fadeAmount2 = 1;
   //  buttonPushCounter = 0;
   encoder2_A = digitalRead(E2_pin_A);    // Read encoder pins
   encoder2_B = digitalRead(E2_pin_B);
+  
   if ((!encoder2_A) && (encoder2_A_prev)) {
+     unsigned long newTimer1 = millis();
     // A has gone from high to low
     if (encoder2_B) {
       // B is high so clockwise
-      // increase the brightness, dont go over 255
+      // increase the brightness, dont go over 150
       if (brightness2 + fadeAmount2 <= 150) brightness2 += fadeAmount2;
     }
     else {
@@ -137,17 +142,28 @@ void encoder2() {
     }
 
   }
-  else if((encoder2_A) &&(encoder2_A_prev)){
-<<<<<<< HEAD
-    if (brightness2 - 1 >= 0) brightness2 --;
-=======
-    if (brightness2 - fadeAmount2 >= 0) brightness2 --;
->>>>>>> 57492b77fc44948e23ae8343e23793279c1a0283
+  if (millis() - newTimer1 >= 5000) {
+    newTimer1 = millis();
+    time2fade = !time2fade;
+    
   }
-  encoder2_A_prev = encoder2_A;     // Store value of A for next time
+  else if ((encoder2_A) && (encoder2_A_prev)) {
+    if (time2fade) {
+      if (brightness2 - 1 >= 0) brightness2 --;
+
+      if (brightness2 - fadeAmount2 >= 0) brightness2 --;
+
+    }
+  }
+    encoder2_A_prev = encoder2_A;     // Store value of A for next time
 
   analogWrite(3, brightness2);
 }
+
+
+
+
+
 
 void encoder3() {
   //  buttonPushCounter = 0;
@@ -168,7 +184,7 @@ void encoder3() {
     }
 
   }
-  else if((encoder3_A) &&(encoder3_A_prev)){
+  else if ((encoder3_A) && (encoder3_A_prev)) {
     if (brightness3 - fadeAmount3 >= 0) brightness3 --;
   }
   encoder3_A_prev = encoder3_A;     // Store value of A for next time
